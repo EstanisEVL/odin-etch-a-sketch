@@ -1,8 +1,10 @@
 const container = document.querySelector(".container");
 const newGridBtn = document.querySelector(".btn-new");
 const clearGridBtn = document.querySelector(".btn-clear");
+const rainbowBtn = document.querySelector(".btn-rainbow");
 
 let mouseDown = false;
+let rainbowMode = false;
 document.body.onmousedown = () => {mouseDown = true};
 document.body.onmouseup = () => {mouseDown = false};
 
@@ -32,8 +34,19 @@ const createGrid = () => {
 const changeColor = (e) => {
   if(e.type === "mouseover" && !mouseDown) return;
 
-  e.target.style.backgroundColor = "black";
+  const randomColor = Math.floor(Math.random() * 256);
+
+  e.target.style.backgroundColor = rainbowMode ? `rgb(${randomColor}, ${randomColor}, ${randomColor})` : "black";
+}
+
+const toggleRainbowMode = () => {
+  if(rainbowMode) {
+    rainbowMode = false;
+  } else {
+    rainbowMode = true;
+  }
 }
 
 newGridBtn.addEventListener("click", createGrid);
 clearGridBtn.addEventListener("click", clearGrid);
+rainbowBtn.addEventListener("click", toggleRainbowMode);
